@@ -117,8 +117,11 @@ int main()
     for (int i = 0; i < 3; i++) {
         SP = SP + 1;
         sprintf_s(stack_info[i], sizeof(stack_info[i]), "arg%d", i + 1);
-        call_stack[i] = i+1;
+        call_stack[i] = i + 1;
     }
+    SP = SP + 1;
+    strcat(stack_info[SP], "Return Address");
+    call_stack[SP] = -1;
     print_stack();
     return 0;
 }
