@@ -110,12 +110,13 @@ void func3(int arg1)
 //main 함수에 관련된 stack frame은 구현하지 않아도 됩니다.
 int main()
 {
+
     func1(1, 2, 3);
     // func1의 스택 프레임 제거 (함수 에필로그 + pop)
     // i : stack info = call stack
     for (int i = 0; i < 3; i++) {
         SP = SP + 1;
-        sprintf_s(stack_info[i], "arg%d", i + 1);
+        sprintf_s(stack_info[i], sizeof(stack_info[i]), "arg%d", i + 1);
         call_stack[i] = i+1;
     }
     print_stack();
