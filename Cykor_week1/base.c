@@ -51,7 +51,7 @@ void push( const char* stk1, int stk2) {
 
 void pop() {
     call_stack[SP] = -1;
-    strcat(stack_info[SP], -1);
+
     SP = SP - 1;
 }
 
@@ -93,8 +93,15 @@ void func1(int arg1, int arg2, int arg3)
     int var_1 = 100;
 
     // func1의 스택 프레임 형성 (함수 프롤로그 + push)
+    push("arg1", 1);
+    push("arg2", 2);
+    push("arg3", 3);
+    push("Return Address", -1);
+    push("var_1", 100);
     print_stack();
+
     func2(11, 13);
+
     // func2의 스택 프레임 제거 (함수 에필로그 + pop)
     print_stack();
 }
@@ -103,10 +110,15 @@ void func1(int arg1, int arg2, int arg3)
 void func2(int arg1, int arg2)
 {
     int var_2 = 200;
-
     // func2의 스택 프레임 형성 (함수 프롤로그 + push)
+    push("arg1", 11);
+    push("arg2", 13);
+    push("Return Address", -1);
+    push("var_2", 200);
     print_stack();
+
     func3(77);
+
     // func3의 스택 프레임 제거 (함수 에필로그 + pop)
     print_stack();
 }
@@ -116,8 +128,11 @@ void func3(int arg1)
 {
     int var_3 = 300;
     int var_4 = 400;
-
     // func3의 스택 프레임 형성 (함수 프롤로그 + push)
+    push("arg1", 77);
+    push("Return Address", -1);
+    push("var_3", 300);
+    push("var_4", 400);
     print_stack();
 }
 
@@ -125,11 +140,11 @@ void func3(int arg1)
 //main 함수에 관련된 stack frame은 구현하지 않아도 됩니다.
 int main()
 {
-    push("arg1", 1);
-    push("arg2", 2);
-    push("arg3", 3);
+
     func1(1, 2, 3);
-    // func1의 스택 프레임 제거 (함수 에필로그 + pop)
     print_stack();
+    
+    // func1의 스택 프레임 제거 (함수 에필로그 + pop)
+    
     return 0;
 }
