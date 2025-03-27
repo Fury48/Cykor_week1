@@ -41,6 +41,21 @@ void func2(int arg1, int arg2);
 void func3(int arg1);
 
 /*
+    매개변수들을 stack에 push
+*/
+void push( const char* stk1, int stk2) {
+    SP = SP + 1;
+    call_stack[SP] = stk2;
+    sprintf_s(stack_info[SP], sizeof(stack_info[SP]), "%s", stk1);
+}
+
+void pop() {
+    call_stack[SP] = -1;
+    strcat(stack_info[SP], -1);
+    SP = SP - 1;
+}
+
+/*
     현재 call_stack 전체를 출력합니다.
     해당 함수의 출력 결과들을 바탕으로 구현 완성도를 평가할 예정입니다.
 */
@@ -110,18 +125,11 @@ void func3(int arg1)
 //main 함수에 관련된 stack frame은 구현하지 않아도 됩니다.
 int main()
 {
-
+    push("arg1", 1);
+    push("arg2", 2);
+    push("arg3", 3);
     func1(1, 2, 3);
     // func1의 스택 프레임 제거 (함수 에필로그 + pop)
-    // i : stack info = call stack
-    for (int i = 0; i < 3; i++) {
-        SP = SP + 1;
-        sprintf_s(stack_info[i], sizeof(stack_info[i]), "arg%d", i + 1);
-        call_stack[i] = i + 1;
-    }
-    SP = SP + 1;
-    strcat(stack_info[SP], "Return Address");
-    call_stack[SP] = -1;
     print_stack();
     return 0;
 }
