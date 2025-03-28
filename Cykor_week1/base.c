@@ -50,8 +50,8 @@ void push( const char* stk1, int stk2) {
 }
 
 void pop() {
-    call_stack[SP] = -1;
-
+    call_stack[SP] = 0;
+    strcpy(stack_info[SP], "");
     SP = SP - 1;
 }
 
@@ -103,6 +103,10 @@ void func1(int arg1, int arg2, int arg3)
     func2(11, 13);
 
     // func2의 스택 프레임 제거 (함수 에필로그 + pop)
+    pop();
+    pop();
+    pop();
+    pop();
     print_stack();
 }
 
@@ -120,6 +124,10 @@ void func2(int arg1, int arg2)
     func3(77);
 
     // func3의 스택 프레임 제거 (함수 에필로그 + pop)
+    pop();
+    pop();
+    pop();
+    pop();
     print_stack();
 }
 
@@ -142,9 +150,26 @@ int main()
 {
 
     func1(1, 2, 3);
-    print_stack();
+
     
     // func1의 스택 프레임 제거 (함수 에필로그 + pop)
-    
+    pop();
+    pop();
+    pop();
+    pop();
+    pop();
+    print_stack();
+
+    printf("\n");
+    for (int i = 0; i < 13; i++) {
+        printf("%d ", call_stack[i]);
+    }
+    printf("\n");
+    printf("\n");
+    for (int i = 0; i < 13; i++) {
+        printf("%s ", stack_info[i]);
+    }
+
+
     return 0;
 }
