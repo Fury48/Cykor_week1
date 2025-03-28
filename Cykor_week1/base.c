@@ -40,21 +40,25 @@ void func1(int arg1, int arg2, int arg3);
 void func2(int arg1, int arg2);
 void func3(int arg1);
 
-/*
-    매개변수들을 stack에 push
-*/
+
+// 매개변수들을 stack에 push
 void push( const char* stk1, int stk2) {
     SP = SP + 1;
     call_stack[SP] = stk2;
     sprintf_s(stack_info[SP], sizeof(stack_info[SP]), "%s", stk1);
 }
 
+// stack에 쌓인것들을 pop
 void pop() {
     call_stack[SP] = 0;
     strcpy(stack_info[SP], "");
     SP = SP - 1;
 }
 
+// ebp에 현재 stack frame의 기준점을 지정
+void set_ebp() {
+    FP = SP;
+}
 /*
     현재 call_stack 전체를 출력합니다.
     해당 함수의 출력 결과들을 바탕으로 구현 완성도를 평가할 예정입니다.
@@ -97,12 +101,14 @@ void func1(int arg1, int arg2, int arg3)
     push("arg2", 2);
     push("arg3", 3);
     push("Return Address", -1);
+    push("func1 SFP", -1);
     push("var_1", 100);
     print_stack();
 
     func2(11, 13);
 
     // func2의 스택 프레임 제거 (함수 에필로그 + pop)
+    pop();
     pop();
     pop();
     pop();
@@ -118,12 +124,17 @@ void func2(int arg1, int arg2)
     push("arg1", 11);
     push("arg2", 13);
     push("Return Address", -1);
+    push("func2 SFP", 4);
     push("var_2", 200);
     print_stack();
 
     func3(77);
 
     // func3의 스택 프레임 제거 (함수 에필로그 + pop)
+    pop();
+    pop();
+    pop();
+    pop();
     pop();
     pop();
     pop();
@@ -139,6 +150,7 @@ void func3(int arg1)
     // func3의 스택 프레임 형성 (함수 프롤로그 + push)
     push("arg1", 77);
     push("Return Address", -1);
+    push("func3 SFP", 9);
     push("var_3", 300);
     push("var_4", 400);
     print_stack();
@@ -156,20 +168,7 @@ int main()
     pop();
     pop();
     pop();
-    pop();
-    pop();
     print_stack();
-
-    printf("\n");
-    for (int i = 0; i < 13; i++) {
-        printf("%d ", call_stack[i]);
-    }
-    printf("\n");
-    printf("\n");
-    for (int i = 0; i < 13; i++) {
-        printf("%s ", stack_info[i]);
-    }
-
 
     return 0;
 }
