@@ -55,10 +55,7 @@ void pop() {
     SP = SP - 1;
 }
 
-// ebp에 현재 stack frame의 기준점을 지정
-void set_ebp() {
-    FP = SP;
-}
+
 /*
     현재 call_stack 전체를 출력합니다.
     해당 함수의 출력 결과들을 바탕으로 구현 완성도를 평가할 예정입니다.
@@ -163,7 +160,6 @@ int main()
 
     func1(1, 2, 3);
 
-    
     // func1의 스택 프레임 제거 (함수 에필로그 + pop)
     pop();
     pop();
