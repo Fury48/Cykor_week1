@@ -43,7 +43,7 @@ void func3(int arg1);
 
 
 // 매개변수들을 stack에 push
-void push( const char* stk1, int stk2) {
+void push( char* stk1, int stk2) {
     SP = SP + 1;
     call_stack[SP] = stk2;
     sprintf_s(stack_info[SP], sizeof(stack_info[SP]), "%s", stk1);
