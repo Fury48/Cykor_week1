@@ -20,6 +20,7 @@
     ========================================================================
 */
 #include <stdio.h>
+#include <string.h>
 #define STACK_SIZE 50 // 최대 스택 크기
 
 int     call_stack[STACK_SIZE];         // Call Stack을 저장하는 배열
@@ -46,12 +47,14 @@ void push( const char* stk1, int stk2) {
     SP = SP + 1;
     call_stack[SP] = stk2;
     sprintf_s(stack_info[SP], sizeof(stack_info[SP]), "%s", stk1);
+    if (strstr(stk1, "SFP") != NULL) FP = SP;
 }
 
 // stack에 쌓인것들을 pop
 void pop() {
+    if (strstr(stack_info[SP], "SFP") != NULL) FP = call_stack[SP];
     call_stack[SP] = 0;
-    strcpy(stack_info[SP], "");
+    strcpy_s(stack_info[SP],sizeof(STACK_SIZE), "");
     SP = SP - 1;
 }
 
