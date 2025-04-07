@@ -136,9 +136,6 @@ void func2(int arg1, int arg2)
     pop();
     pop();
     pop();
-    pop();
-    pop();
-    pop();
     print_stack();
 }
 
@@ -164,6 +161,9 @@ int main()
     func1(1, 2, 3);
 
     // func1의 스택 프레임 제거 (함수 에필로그 + pop)
+    pop();
+    pop();
+    pop();
     pop();
     pop();
     pop();
