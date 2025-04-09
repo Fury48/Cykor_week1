@@ -97,9 +97,9 @@ void func1(int arg1, int arg2, int arg3)
     int var_1 = 100;
 
     // func1의 스택 프레임 형성 (함수 프롤로그 + push)
-    push("arg1", 1);
-    push("arg2", 2);
     push("arg3", 3);
+    push("arg2", 2);
+    push("arg1", 1);
     push("Return Address", -1);
     push("func1 SFP", -1);
     push("var_1", 100);
@@ -121,8 +121,8 @@ void func2(int arg1, int arg2)
 {
     int var_2 = 200;
     // func2의 스택 프레임 형성 (함수 프롤로그 + push)
-    push("arg1", 11);
     push("arg2", 13);
+    push("arg1", 11);
     push("Return Address", -1);
     push("func2 SFP", 4);
     push("var_2", 200);
